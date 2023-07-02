@@ -16,7 +16,7 @@ const App:FC =() => {
     }
   } 
 
-  const addTask = ():void =>{
+  const addTodo = ():void =>{
     const newTask = {
       taskName:task,
       deadline:deadLine
@@ -37,7 +37,7 @@ const App:FC =() => {
       <div className='header'>
         <div className='inputContainer'>
           <input type="text"
-           placeholder='Task...' 
+           placeholder='Todo...' 
            name='task'
            value={task}
            onChange={handleChange} />
@@ -48,7 +48,7 @@ const App:FC =() => {
           value={deadLine}
           onChange={handleChange} />
         </div>
-        <button onClick={addTask}>Add Task</button>
+        <button onClick={addTodo}>Add Todo</button>
       </div>
       <div className='todoList'>
         {todo.map((task:ITask, key:number)=>{
