@@ -11,11 +11,11 @@ const TodoTask= ({task, completeTask}:Props) => {
   <div className='task'>
     <div className="content">
       <span>{task.taskName}</span>
-      <span>{task.deadline}</span>
+      <span>{task.deadline} days</span>
     </div>
     <button onClick={()=>{
       completeTask(task.taskName);
-    }}>X</button>
+    }}>Delete</button>
   </div>
   );
 }

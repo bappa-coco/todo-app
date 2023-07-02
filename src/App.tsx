@@ -11,6 +11,7 @@ const App:FC =() => {
   const handleChange = (event:ChangeEvent<HTMLInputElement>) :void =>{
     if (event.target.name === "task"){
       setTask(event.target.value);
+      setDeadLine(Number(event.target.value));
     }else{
       setDeadLine(Number(event.target.value));
     }
