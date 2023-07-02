@@ -38,7 +38,7 @@ const App:FC =() => {
       <div className='header'>
         <div className='inputContainer'>
           <input type="text"
-           placeholder='Todo...' 
+           placeholder='Add Todo' 
            name='task'
            value={task}
            onChange={handleChange} />
