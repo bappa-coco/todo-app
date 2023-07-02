@@ -49,7 +49,7 @@ const App:FC =() => {
           value={deadLine}
           onChange={handleChange} />
         </div>
-        <button onClick={addTodo}>Add Todo</button>
+        <button onClick={addTodo}>Add Todo </button>
       </div>
       <div className='todoList'>
         {todo.map((task:ITask, key:number)=>{
