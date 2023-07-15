@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { TodoForm } from './Components/Form';
 import { TodoList } from './Components/TodoList';
+import Header from './Components/Header';
 
 function App() {
   const [todos, setTodos] = useState<Array<Todo>>([]);
@@ -23,25 +24,28 @@ function App() {
   };
 
   const removeTodo: RemoveTodo = todoToRemove => {
-    let updatedTodos: Array<Todo> = todos.filter(todo => todo.text != todoToRemove.text);
+    let updatedTodos: Array<Todo> = todos.filter(todo => todo.text !== todoToRemove.text);
     setTodos(updatedTodos);
   }
 
   const editTodo: EditTodo = todoToEdit => {
-    let todoToUpdateIndex: number = todos.findIndex(todo => todo.text == todoToEdit.text);
+    let todoToUpdateIndex: number = todos.findIndex(todo => todo.text === todoToEdit.text);
     console.log(todoToUpdateIndex);
   }
 
   return (
-    <div className="todo-app">
-      <header>
-        <h1>
-        Todo App
-        </h1>
-      </header>
-      <TodoForm addTodo={addTodo}/>
-      <TodoList todos={todos} toggleComplete={toggleComplete} onRemoveTodo={removeTodo} editTodo={editTodo}/>
-    </div>
+    <>
+      <Header />
+      <div className="todo-app">
+        <header>
+          <h1>
+            Todo List Item
+          </h1>
+        </header>
+        <TodoForm addTodo={addTodo} />
+        <TodoList todos={todos} toggleComplete={toggleComplete} onRemoveTodo={removeTodo} editTodo={editTodo} />
+      </div>
+    </>
   );
 };
 
