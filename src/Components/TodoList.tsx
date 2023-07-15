@@ -1,23 +1,25 @@
-import React from 'react';
-import { ITask } from '../Interfarce';
+import React from "react";
+import { TodoListItem } from "./TodoListItem";
 
-interface Props{
-  task:ITask;
-  completeTask(taskNameToDelete:string):void;
+interface TodoListProps {
+  todos: Array<Todo>;
+  toggleComplete: ToggleComplete;
+  onRemoveTodo: RemoveTodo;
+  editTodo: EditTodo;
 }
 
-const TodoTask= ({task, completeTask}:Props) => {
+export const TodoList: React.FC<TodoListProps> = ({ todos, toggleComplete, onRemoveTodo, editTodo }) => {
   return (
-  <div className='task'>
-    <div className="content">
-      <span>{task.taskName}</span>
-      <span>{task.deadline} days</span>
-    </div>
-    <button onClick={()=>{
-      completeTask(task.taskName);
-    }}>Delete</button>
-  </div>
+    <ul>
+     {todos.map(todo => (
+       <TodoListItem
+          key={todo.text}
+          todo={todo}
+          toggleComplete={toggleComplete}
+          onRemoveTodo={onRemoveTodo}
+          editTodo={editTodo}
+        />
+     ))}
+    </ul>
   );
-}
-
-export default TodoTask;
+};
