@@ -24,9 +24,17 @@
 //   );
 // };
 
-
 import { useState } from "react";
 import EditTodo from "./Dropdown";
+import {
+  Checkbox,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 
 interface Props {
   completed: boolean | undefined;
@@ -42,29 +50,69 @@ const TodoList = ({
   handleClick,
   handleUpdateTodo,
 }: Props) => {
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [editTodo, setEditTodo] = useState(false);
   return (
-    <section className="flex items-center justify-between mt-2 mb-2 border-b dark:border-slate-700 ">
-      <div className="flex items-center gap-2 dark:text-[#DDE6ED] px-1">
-        <input
-          className="hover:cursor-pointer accent-pink-500 dark:accent-gray-400"
-          id="checkbox"
-          type="checkbox"
-          checked={completed}
-          onChange={(e) => checkBoxClick(e.target.checked)}
-        />
-        {todoText.length > 80 ? todoText.substring(0, 80) + "..." : todoText}
-      </div>
-
-      <div className="flex gap-2 ml-1">
-        <button onClick={() => setEditTodo(true)}>
-          {/* <AiFillEdit className="text-gray-500 dark:text-[#DDE6ED]" /> */}
-        </button>
-        <button onClick={() => handleClick()}>
-          {/* <FiDelete className="text-red-500 dark:text-red-100" /> */}
-        </button>
-      </div>
-
+    <Stack
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="stretch"
+      spacing={2}
+    >
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+          >
+            <Grid item>
+              <Checkbox
+                {...label}
+                color="success"
+                checked={completed}
+                onChange={(e) => checkBoxClick(e.target.checked)}
+              />
+            </Grid>
+            <Grid item>
+              <Typography>
+                {todoText.length > 80
+                  ? todoText.substring(0, 80) + "..."
+                  : todoText}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="flex-start"
+          >
+            <Grid item>
+              <IconButton aria-label="delete" onClick={() => setEditTodo(true)}>
+                <EditIcon />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <IconButton
+                aria-label="delete"
+                color="primary"
+                onClick={() => handleClick()}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
       {editTodo && (
         <EditTodo
           editTodoState={editTodo}
@@ -76,7 +124,7 @@ const TodoList = ({
           currentTodo={todoText}
         />
       )}
-    </section>
+    </Stack>
   );
 };
 

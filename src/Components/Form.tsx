@@ -1,5 +1,7 @@
 // import React, { useState, ChangeEvent, FormEvent } from 'react';
 
+import { Button } from "@mui/material";
+
 // interface TodoFormProps {
 //     addTodo: AddTodo;
 // }
@@ -57,12 +59,9 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
         onKeyDown={handleKeyDown}
         onChange={handleInputChange}
       />
-      <button
-        className="todo-button"
-        onClick={handleSubmit}
-      >
-        {/* <IoMdAdd /> */}
-      </button>
+      <Button variant="contained" href="#contained-buttons"onClick={handleSubmit}>
+        Add Todo
+      </Button>
     </div>
   );
 };
