@@ -1,40 +1,16 @@
-// import React from "react";
-// import { TodoListItem } from "./TodoListItem";
-
-// interface TodoListProps {
-//   todos: Array<Todo>;
-//   toggleComplete: ToggleComplete;
-//   onRemoveTodo: RemoveTodo;
-//   editTodo: EditTodo;
-// }
-
-// export const TodoList: React.FC<TodoListProps> = ({ todos, toggleComplete, onRemoveTodo, editTodo }) => {
-//   return (
-//     <ul>
-//      {todos.map(todo => (
-//        <TodoListItem
-//           key={todo.text}
-//           todo={todo}
-//           toggleComplete={toggleComplete}
-//           onRemoveTodo={onRemoveTodo}
-//           editTodo={editTodo}
-//         />
-//      ))}
-//     </ul>
-//   );
-// };
-
 import { useState } from "react";
 import EditTodo from "./Dropdown";
 import {
+  Box,
   Checkbox,
-  Grid,
   IconButton,
+  Paper,
   Stack,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
+import { styled } from "@mui/material/styles";
 
 interface Props {
   completed: boolean | undefined;
@@ -52,67 +28,47 @@ const TodoList = ({
 }: Props) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [editTodo, setEditTodo] = useState(false);
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    maxWidth: 400,
+  }));
   return (
-    <Stack
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="stretch"
-      spacing={2}
-    >
-      <Grid
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
+    <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3 }}>
+      <Item
+        sx={{
+          my: 1,
+          mx: "auto",
+          p: 2,
+        }}
       >
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
+        <Stack spacing={2} direction="row" alignItems="center">
+          <Checkbox
+            {...label}
+            color="success"
+            checked={completed}
+            onChange={(e) => checkBoxClick(e.target.checked)}
+          />
+          <Typography>
+            {todoText.length > 80
+              ? todoText.substring(0, 80) + "..."
+              : todoText}
+          </Typography>
+          <IconButton aria-label="delete" onClick={() => setEditTodo(true)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            color="primary"
+            onClick={() => handleClick()}
           >
-            <Grid item>
-              <Checkbox
-                {...label}
-                color="success"
-                checked={completed}
-                onChange={(e) => checkBoxClick(e.target.checked)}
-              />
-            </Grid>
-            <Grid item>
-              <Typography>
-                {todoText.length > 80
-                  ? todoText.substring(0, 80) + "..."
-                  : todoText}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-end"
-            alignItems="flex-start"
-          >
-            <Grid item>
-              <IconButton aria-label="delete" onClick={() => setEditTodo(true)}>
-                <EditIcon />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton
-                aria-label="delete"
-                color="primary"
-                onClick={() => handleClick()}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+            <DeleteIcon />
+          </IconButton>
+        </Stack>
+      </Item>
       {editTodo && (
         <EditTodo
           editTodoState={editTodo}
@@ -124,7 +80,7 @@ const TodoList = ({
           currentTodo={todoText}
         />
       )}
-    </Stack>
+    </Box>
   );
 };
 

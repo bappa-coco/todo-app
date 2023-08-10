@@ -11,8 +11,6 @@ function App() {
         <header>
           <h1>Todo List Item</h1>
         </header>
-        {/* <TodoForm addTodo={addTodo} /> */}
-        {/* <TodoList todos={todos} toggleComplete={toggleComplete} onRemoveTodo={removeTodo} editTodo={editTodo} /> */}
         <TodoListItem />
       </div>
     </>
