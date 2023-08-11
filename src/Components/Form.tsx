@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 interface Props {
   handleSubmit: () => void;
   setInputValue: (value: string) => void;
@@ -16,22 +16,36 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
 
   return (
     <div className="todo-form">
-      <input
-        className="todo-input"
-        type="text"
-        placeholder="add a todo..."
-        value={inputValue}
-        name="input"
-        onKeyDown={handleKeyDown}
-        onChange={handleInputChange}
-      />
-      <Button
-        variant="contained"
-        href="#contained-buttons"
-        onClick={handleSubmit}
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
       >
-        Add Todo
-      </Button>
+        <Grid item>
+          <TextField
+            id="outlined-basic"
+            label="Add Todo"
+            variant="outlined"
+            type="text"
+            placeholder="add a todo..."
+            value={inputValue}
+            name="input"
+            onKeyDown={handleKeyDown}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            href="#contained-buttons"
+            onClick={handleSubmit}
+          >
+            Add Todo
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 };
