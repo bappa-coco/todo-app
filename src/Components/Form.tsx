@@ -5,6 +5,7 @@ import {
   InputLabel,
   Input,
   Typography,
+  Container,
 } from "@mui/material";
 import React from "react";
 interface Props {
@@ -30,15 +31,9 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
   };
 
   return (
-    <div className="todo-form">
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={1}
-      >
-        <Grid item>
+    <Container maxWidth="sm">
+      <Grid container alignItems="center">
+        <Grid item md={12} sm={12} xs={12}>
           <FormControl variant="standard" fullWidth sx={{ mb: 2 }}>
             <InputLabel htmlFor="standard-emailFieldID">Write Todo</InputLabel>
             <Input
@@ -58,7 +53,7 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
             ) : null}
           </FormControl>
         </Grid>
-        <Grid item>
+        <Grid item md={12} sm={12} xs={12}>
           <Button
             variant="outlined"
             href="#contained-buttons"
@@ -68,7 +63,7 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
           </Button>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 };
 
