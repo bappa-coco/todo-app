@@ -1,4 +1,12 @@
-import { Button, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  Input,
+  Typography,
+} from "@mui/material";
+import React from "react";
 interface Props {
   handleSubmit: () => void;
   setInputValue: (value: string) => void;
@@ -13,6 +21,13 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
       handleSubmit();
     }
   };
+  const [emailFieldError, setEmailFieldError] = React.useState(false);
+  const emailFieldNullMsg = "Please complete this required field";
+  const emailFieldChange = (e: any) => {
+    e.target.value.length > 0
+      ? setEmailFieldError(false)
+      : setEmailFieldError(true);
+  };
 
   return (
     <div className="todo-form">
@@ -24,21 +39,28 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
         spacing={1}
       >
         <Grid item>
-          <TextField
-            id="outlined-basic"
-            label="Add Todo"
-            variant="outlined"
-            type="text"
-            placeholder="add a todo..."
-            value={inputValue}
-            name="input"
-            onKeyDown={handleKeyDown}
-            onChange={handleInputChange}
-          />
+          <FormControl variant="standard" fullWidth sx={{ mb: 2 }}>
+            <InputLabel htmlFor="standard-emailFieldID">Write Todo</InputLabel>
+            <Input
+              id="emailFieldID"
+              required
+              error={emailFieldError}
+              value={inputValue}
+              onBlur={(e) => emailFieldChange(e)}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              fullWidth
+            />
+            {emailFieldError === true ? (
+              <Typography style={{ color: "#d32f2f" }} sx={{ fontSize: 13 }}>
+                {emailFieldNullMsg}
+              </Typography>
+            ) : null}
+          </FormControl>
         </Grid>
         <Grid item>
           <Button
-            variant="contained"
+            variant="outlined"
             href="#contained-buttons"
             onClick={handleSubmit}
           >

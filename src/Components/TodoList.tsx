@@ -39,11 +39,11 @@ const TodoList = ({
   }));
   return (
     <>
-      <Grid
-        container
+      <Stack
         direction="column"
         justifyContent="flex-start"
-        alignItems="center"
+        alignItems="stretch"
+        spacing={2}
       >
         <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3 }}>
           <Item
@@ -53,29 +53,45 @@ const TodoList = ({
               p: 2,
             }}
           >
-            <Stack spacing={2} direction="row" alignItems="center">
-              <Checkbox
-                {...label}
-                color="success"
-                checked={completed}
-                onChange={(e) => checkBoxClick(e.target.checked)}
-              />
-              <Typography>
-                {todoText.length > 80
-                  ? todoText.substring(0, 80) + "..."
-                  : todoText}
-              </Typography>
-              <IconButton aria-label="delete" onClick={() => setEditTodo(true)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="delete"
-                color="primary"
-                onClick={() => handleClick()}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Stack>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Grid item>
+                <Checkbox
+                  {...label}
+                  color="success"
+                  checked={completed}
+                  onChange={(e) => checkBoxClick(e.target.checked)}
+                />
+              </Grid>
+              <Grid item>
+                <Typography>
+                  {todoText.length > 80
+                    ? todoText.substring(0, 80) + "..."
+                    : todoText}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => setEditTodo(true)}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  aria-label="delete"
+                  color="primary"
+                  onClick={() => handleClick()}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Item>
           {editTodo && (
             <EditTodo
@@ -89,7 +105,7 @@ const TodoList = ({
             />
           )}
         </Box>
-      </Grid>
+      </Stack>
     </>
   );
 };
