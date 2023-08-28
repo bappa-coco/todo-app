@@ -1,10 +1,9 @@
 import {
   Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  Input,
   Container,
+  InputBase,
+  Paper,
+  ButtonGroup,
 } from "@mui/material";
 import React from "react";
 interface Props {
@@ -24,30 +23,28 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
 
   return (
     <Container maxWidth="sm">
-      <Grid container alignItems="center">
-        <Grid item md={12} sm={12} xs={12}>
-          <FormControl variant="standard" fullWidth sx={{ mb: 2 }}>
-            <InputLabel htmlFor="standard-emailFieldID">Write Todo</InputLabel>
-            <Input
-              id="emailFieldID"
-              required
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              fullWidth
-            />
-          </FormControl>
-        </Grid>
-        <Grid item md={12} sm={12} xs={12}>
-          <Button
-            variant="contained"
-            href="#contained-buttons"
-            onClick={handleSubmit}
-          >
-            Add Todo
+      <Paper
+        variant="outlined"
+        component="form"
+        sx={{ display: "flex", alignItems: "center", width: 380 }}
+      >
+        <InputBase
+          value={inputValue}
+          onChange={handleInputChange}
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="WRITE TODO"
+          onKeyDown={handleKeyDown}
+          inputProps={{ "aria-label": "search patient" }}
+        />
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button sx={{ borderRadius: 0 }} onClick={handleSubmit}>
+            ADD TODO
           </Button>
-        </Grid>
-      </Grid>
+        </ButtonGroup>
+      </Paper>
     </Container>
   );
 };

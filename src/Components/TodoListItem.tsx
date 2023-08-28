@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import InputComponent from "./Form";
+import TodoForm from "./Form";
 import TodoList from "./TodoList";
 import useLocalStorage from "./LocalStorage";
 
@@ -46,7 +46,7 @@ const TodoListItem = () => {
   return (
     <main className="h-screen w-screen bg-red-100 flex justify-center p-2 dark:bg-[#0e1724] ">
       <section className="w-full max-w-[420px] h-fit p-2 bg-white rounded-md mt-5 dark:bg-[#25273C] overflow-hidden font-primary">
-        <InputComponent
+        <TodoForm
           setInputValue={(value) => setInputValue(value)}
           inputValue={inputValue}
           handleSubmit={() => addTodo()}
