@@ -75,22 +75,33 @@ const TodoList = ({
                 </Typography>
               </Grid>
               <Grid item>
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => setEditTodo(true)}
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
                 >
-                  <EditIcon />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <IconButton
-                  aria-label="delete"
-                  color="primary"
-                  onClick={() => handleClick()}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Grid>
+                  <Grid item>
+                    {" "}
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => setEditTodo(true)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    {" "}
+                    <IconButton
+                      aria-label="delete"
+                      color="primary"
+                      onClick={() => handleClick()}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Grid>{" "}
             </Grid>
           </Item>
           {editTodo && (
