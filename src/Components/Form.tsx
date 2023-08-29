@@ -35,7 +35,7 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
           onKeyDown={handleKeyDown}
           inputProps={{ "aria-label": "search patient" }}
         />
-          <Button sx={{ borderRadius: 0 }} onClick={handleSubmit} variant="contained">
+          <Button sx={{ borderRadius: 1, backgroundColor: "#3F9F31" }} onClick={handleSubmit} variant="contained">
             ADD TODO
           </Button>
       </Paper>
