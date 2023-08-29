@@ -3,7 +3,6 @@ import {
   Container,
   InputBase,
   Paper,
-  ButtonGroup,
 } from "@mui/material";
 import React from "react";
 interface Props {
@@ -36,14 +35,9 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
           onKeyDown={handleKeyDown}
           inputProps={{ "aria-label": "search patient" }}
         />
-        <ButtonGroup
-          variant="outlined"
-          aria-label="outlined primary button group"
-        >
-          <Button sx={{ borderRadius: 0 }} onClick={handleSubmit}>
+          <Button sx={{ borderRadius: 0 }} onClick={handleSubmit} variant="contained">
             ADD TODO
           </Button>
-        </ButtonGroup>
       </Paper>
     </Container>
   );

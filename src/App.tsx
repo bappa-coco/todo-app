@@ -14,7 +14,7 @@ function App() {
         alignItems="center"
         py={3}
       >
-        <Card sx={{ minWidth: 445 }}>
+        <Card sx={{ minWidth: 445, backgroundColor: "#A0E1A4" }}>
           <CardHeader
             title="Create your todo list"
           />

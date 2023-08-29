@@ -43,7 +43,7 @@ const TodoList = ({
         direction="column"
         justifyContent="flex-start"
         alignItems="stretch"
-        spacing={2}
+        spacing={1}
       >
         <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3 }}>
           <Item
