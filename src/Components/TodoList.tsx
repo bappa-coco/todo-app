@@ -14,14 +14,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import { styled } from "@mui/material/styles";
 
 interface Props {
-  completed: boolean | undefined;
+  isCompleted: boolean | undefined;
   checkBoxClick: (value: boolean) => void;
   todoText: string;
   handleClick: () => void;
   handleUpdateTodo: (value: string) => void;
 }
 const TodoList = ({
-  completed,
+  isCompleted,
   checkBoxClick,
   todoText,
   handleClick,
@@ -63,7 +63,7 @@ const TodoList = ({
                 <Checkbox
                   {...label}
                   color="success"
-                  checked={completed}
+                  checked={isCompleted}
                   onChange={(e) => checkBoxClick(e.target.checked)}
                 />
               </Grid>

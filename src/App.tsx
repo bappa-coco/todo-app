@@ -7,6 +7,7 @@ function App() {
   return (
     <>
       <Header />
+
       <Grid
         container
         direction="column"
@@ -15,15 +16,16 @@ function App() {
         py={3}
       >
         <Grid item xs={12} sm={8} md={6} lg={4}> {/* Responsive grid */}
-        <Card sx={{ minWidth: 445, backgroundColor: "#109DA4", flexGrow: 1 }}>
-          <CardHeader
-            title="Create your todo list"
-          />
-          <CardContent>
-            <TodoListItem />
-          </CardContent>
-        </Card>
-      </Grid>
+          <Card sx={{ minWidth: 445, backgroundColor: "#109DA4", flexGrow: 1 }}>
+            <CardHeader
+              title="Create your todo list"
+            />
+
+            <CardContent>
+              <TodoListItem />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
     </>
   );

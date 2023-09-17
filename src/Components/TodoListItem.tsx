@@ -6,7 +6,7 @@ import useLocalStorage from "./LocalStorage";
 interface Todo {
   id: number;
   text: string;
-  completed?: boolean;
+  isCompleted?: boolean;
 }
 
 const TodoListItem = () => {
@@ -21,7 +21,7 @@ const TodoListItem = () => {
   const addTodo = () => {
     if (inputValue.trim() === "") return;
     setTodos((currentTodos) => [
-      { id: Math.random() * 1234, text: inputValue, completed: false },
+      { id: Math.random() * 1234, text: inputValue, isCompleted: false },
       ...currentTodos,
     ]);
     setInputValue("");
@@ -35,10 +35,10 @@ const TodoListItem = () => {
       todos.map((todo) => (todo.id === id ? { ...todo, text: value } : todo))
     );
   };
-  const toggleCheckBox = (id: number, completed: boolean) => {
+  const toggleCheckBox = (id: number, isCompleted: boolean) => {
     setTodos((currentTodos) =>
       currentTodos.map((todo) =>
-        todo.id === id ? { ...todo, completed } : todo
+        todo.id === id ? { ...todo, isCompleted } : todo
       )
     );
   };
@@ -60,7 +60,7 @@ const TodoListItem = () => {
           {todos.map((todo) => (
             <TodoList
               key={todo.id}
-              completed={todo.completed}
+              isCompleted={todo.isCompleted}
               todoText={todo.text}
               handleClick={() => deleteTodo(todo.id)}
               checkBoxClick={(value) => toggleCheckBox(todo.id, value)}
