@@ -13,6 +13,7 @@ const Dropdown = ({
   setEditState,
 }: Props) => {
   const [inputValue, setInputValue] = useState(currentTodo);
+
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const Dropdown = ({
     return () => {
       document.removeEventListener("keydown", handleEscKey);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -39,30 +41,32 @@ const Dropdown = ({
   }, [editTodoState]);
 
   return (
-    <section
-      className="fixed top-0 left-0 h-screen w-screen bg-[#80808099] flex items-center"
-      onClick={() => setEditState(false)}
-    >
+    <>
       <section
-        className="flex items-center w-4/5 p-5 m-auto bg-white rounded max-w-fit dark:bg-gray-400"
-        onClick={(e) => e.stopPropagation()}
+        className="fixed top-0 left-0 h-screen w-screen bg-[#80808099] flex items-center"
+        onClick={() => setEditState(false)}
       >
-        <input
-          className="w-full p-1 px-2 bg-gray-200 focus:outline-none dark:bg-gray-300"
-          type="text"
-          onKeyDown={handleKeyDown}
-          value={inputValue}
-          ref={ref}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button
-          className="p-1 px-5 text-white break-normal bg-blue-600 dark:bg-blue-700"
-          onClick={() => handleSubmit(inputValue)}
+        <section
+          className="flex items-center w-4/5 p-5 m-auto bg-white rounded max-w-fit dark:bg-gray-400"
+          onClick={(e) => e.stopPropagation()}
         >
-          edit
-        </button>
+          <input
+            className="w-full p-1 px-2 bg-gray-200 focus:outline-none dark:bg-gray-300"
+            type="text"
+            onKeyDown={handleKeyDown}
+            value={inputValue}
+            ref={ref}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button
+            className="p-1 px-5 text-white break-normal bg-blue-600 dark:bg-blue-700"
+            onClick={() => handleSubmit(inputValue)}
+          >
+            edit
+          </button>
+        </section>
       </section>
-    </section>
+    </>
   );
 };
 

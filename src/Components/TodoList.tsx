@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EditTodo from "./Dropdown";
+import EditTodo from "./EditTodo";
 import {
   Box,
   Checkbox,
