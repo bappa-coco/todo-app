@@ -17,6 +17,7 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSubmit();
+      window.location.reload();
     }
   };
 
@@ -34,6 +35,7 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
           placeholder="WRITE TODO"
           onKeyDown={handleKeyDown}
           inputProps={{ "aria-label": "search patient" }}
+          multiline
         />
           <Button sx={{ borderRadius: 1, backgroundColor: "#3F9F31" }} onClick={handleSubmit} variant="contained">
             ADD TODO

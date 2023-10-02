@@ -86,11 +86,9 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item>
+              <Grid item xs={9}>
                 <Typography>
-                  {todoText.length > 80
-                    ? todoText.substring(0, 80) + "..."
-                    : todoText}
+                  {todoText}
                 </Typography>
               </Grid>
               <Grid item>
