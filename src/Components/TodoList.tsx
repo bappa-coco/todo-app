@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import EditTodo from "./EditTodo";
 import {
   Box,
   Button,
@@ -10,31 +9,22 @@ import {
   Grid,
   IconButton,
   Paper,
-  Slide,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { styled } from "@mui/material/styles";
-import { TransitionProps } from "@mui/material/transitions";
 
 interface Props {
   todoText: string;
   handleClick: () => void;
   handleUpdateTodo: (value: string) => void;
 }
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   const [editTodo, setEditTodo] = useState(false);
   const [open, setOpen] = useState(false);
+  const [editedTodo, setEditedTodo] = useState(todoText);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,20 +33,20 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    maxWidth: 400,
-  }));
+
+  const handleEdit = () => {
+    setEditTodo(true);
+    setOpen(false); // Close the delete dialog when edit mode is activated
+  };
+
+  const handleSaveEdit = () => {
+    handleUpdateTodo(editedTodo);
+    setEditTodo(false);
+  };
   return (
     <>
       <Dialog
         open={open}
-        TransitionComponent={Transition}
-        keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
@@ -73,7 +63,7 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
         spacing={1}
       >
         <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3 }}>
-          <Item
+          <Paper
             sx={{
               my: 1,
               mx: "auto",
@@ -87,9 +77,15 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
               alignItems="center"
             >
               <Grid item xs={9}>
-                <Typography>
-                  {todoText}
-                </Typography>
+                {editTodo ? (
+                  <TextField
+                    fullWidth
+                    value={editedTodo}
+                    onChange={(e) => setEditedTodo(e.target.value)}
+                  />
+                ) : (
+                  <Typography>{todoText}</Typography>
+                )}
               </Grid>
               <Grid item>
                 <Grid
@@ -99,37 +95,34 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <IconButton
-                      aria-label="delete"
-                      onClick={() => setEditTodo(true)}
-                    >
-                      <EditIcon />
-                    </IconButton>
+                    {!editTodo && (
+                      <IconButton aria-label="edit" onClick={handleEdit}>
+                        <EditIcon />
+                      </IconButton>
+                    )}
+                    {editTodo && (
+                      <IconButton aria-label="save" onClick={handleSaveEdit}>
+                        <Button variant="contained" color="primary">
+                          Save
+                        </Button>
+                      </IconButton>
+                    )}
                   </Grid>
                   <Grid item>
-                    <IconButton
-                      aria-label="delete"
-                      color="primary"
-                      onClick={() => handleClickOpen()}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    {!editTodo && (
+                      <IconButton
+                        aria-label="delete"
+                        color="primary"
+                        onClick={handleClickOpen}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>{" "}
             </Grid>
-          </Item>
-          {editTodo && (
-            <EditTodo
-              editTodoState={editTodo}
-              handleSubmit={(value) => {
-                handleUpdateTodo(value);
-                setEditTodo(false);
-              }}
-              setEditState={(value) => setEditTodo(value)}
-              currentTodo={todoText}
-            />
-          )}
+          </Paper>
         </Box>
       </Stack>
     </>
