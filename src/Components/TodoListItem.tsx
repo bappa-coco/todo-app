@@ -6,7 +6,6 @@ import useLocalStorage from "./LocalStorage";
 interface Todo {
   id: number;
   text: string;
-  isCompleted?: boolean;
 }
 
 const TodoListItem = () => {
@@ -21,7 +20,7 @@ const TodoListItem = () => {
   const addTodo = () => {
     if (inputValue.trim() === "") return;
     setTodos((currentTodos) => [
-      { id: Math.random() * 1234, text: inputValue, isCompleted: false },
+      { id: Math.random() * 1234, text: inputValue },
       ...currentTodos,
     ]);
     setInputValue("");
@@ -35,14 +34,6 @@ const TodoListItem = () => {
       todos.map((todo) => (todo.id === id ? { ...todo, text: value } : todo))
     );
   };
-  const toggleCheckBox = (id: number, isCompleted: boolean) => {
-    setTodos((currentTodos) =>
-      currentTodos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted } : todo
-      )
-    );
-  };
-
   return (
     <main className="h-screen w-screen bg-red-100 flex justify-center p-2 dark:bg-[#0e1724] ">
       <section className="w-full max-w-[420px] h-fit p-2 bg-white rounded-md mt-5 dark:bg-[#25273C] overflow-hidden font-primary">
@@ -60,10 +51,8 @@ const TodoListItem = () => {
           {todos.map((todo) => (
             <TodoList
               key={todo.id}
-              isCompleted={todo.isCompleted}
               todoText={todo.text}
               handleClick={() => deleteTodo(todo.id)}
-              checkBoxClick={(value) => toggleCheckBox(todo.id, value)}
               handleUpdateTodo={(value) => updateTodo(todo.id, value)}
             />
           ))}

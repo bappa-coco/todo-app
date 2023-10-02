@@ -1,34 +1,48 @@
+import React from "react";
 import { useState } from "react";
 import EditTodo from "./EditTodo";
 import {
   Box,
-  Checkbox,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   Grid,
   IconButton,
   Paper,
+  Slide,
   Stack,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { styled } from "@mui/material/styles";
+import { TransitionProps } from "@mui/material/transitions";
 
 interface Props {
-  isCompleted: boolean | undefined;
-  checkBoxClick: (value: boolean) => void;
   todoText: string;
   handleClick: () => void;
   handleUpdateTodo: (value: string) => void;
 }
-const TodoList = ({
-  isCompleted,
-  checkBoxClick,
-  todoText,
-  handleClick,
-  handleUpdateTodo,
-}: Props) => {
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   const [editTodo, setEditTodo] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -39,6 +53,19 @@ const TodoList = ({
   }));
   return (
     <>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Do You Want To Delete Todo?"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => handleClick()}>Yes</Button>
+          <Button onClick={handleClose}>No</Button>
+        </DialogActions>
+      </Dialog>
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -60,14 +87,6 @@ const TodoList = ({
               alignItems="center"
             >
               <Grid item>
-                <Checkbox
-                  {...label}
-                  color="success"
-                  checked={isCompleted}
-                  onChange={(e) => checkBoxClick(e.target.checked)}
-                />
-              </Grid>
-              <Grid item>
                 <Typography>
                   {todoText.length > 80
                     ? todoText.substring(0, 80) + "..."
@@ -82,7 +101,6 @@ const TodoList = ({
                   alignItems="center"
                 >
                   <Grid item>
-                    {" "}
                     <IconButton
                       aria-label="delete"
                       onClick={() => setEditTodo(true)}
@@ -91,11 +109,10 @@ const TodoList = ({
                     </IconButton>
                   </Grid>
                   <Grid item>
-                    {" "}
                     <IconButton
                       aria-label="delete"
                       color="primary"
-                      onClick={() => handleClick()}
+                      onClick={() => handleClickOpen()}
                     >
                       <DeleteIcon />
                     </IconButton>
