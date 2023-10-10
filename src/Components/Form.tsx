@@ -16,8 +16,8 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
   };
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       handleSubmit();
-      window.location.reload();
     }
   };
 

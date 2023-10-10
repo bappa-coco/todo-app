@@ -4,6 +4,7 @@ import Header from "./Header";
 import TodoListItem from "./TodoListItem";
 
 function TodoCard() {
+  const formTitle = 'Create your todo list';
   return (
     <Paper>
       <Header />
@@ -16,8 +17,7 @@ function TodoCard() {
       >
         <Grid item xs={12} sm={8} md={6} lg={4}> {/* Responsive grid */}
           <Card sx={{ minWidth: 445, backgroundColor: "#109DA4", flexGrow: 1 }}>
-            <CardHeader title="Create your todo list" />
-
+            <CardHeader title={formTitle} />
             <CardContent>
               <TodoListItem />
             </CardContent>

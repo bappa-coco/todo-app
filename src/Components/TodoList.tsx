@@ -23,20 +23,20 @@ interface Props {
 }
 const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   const [editTodo, setEditTodo] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
   const [editedTodo, setEditedTodo] = useState(todoText);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setShouldOpenDialog(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setShouldOpenDialog(false);
   };
 
   const handleEdit = () => {
     setEditTodo(true);
-    setOpen(false); // Close the delete dialog when edit mode is activated
+    setShouldOpenDialog(false); // Close the delete dialog when edit mode is activated
   };
 
   const handleSaveEdit = () => {
@@ -46,7 +46,7 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   return (
     <>
       <Dialog
-        open={open}
+        open={shouldOpenDialog}
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
