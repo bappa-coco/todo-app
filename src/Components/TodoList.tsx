@@ -43,6 +43,8 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
     handleUpdateTodo(editedTodo);
     setEditTodo(false);
   };
+
+  const dialogTitle = 'Do You Want To Delete Todo?';
   return (
     <>
       <Dialog
@@ -50,7 +52,7 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Do You Want To Delete Todo?"}</DialogTitle>
+        <DialogTitle>{dialogTitle}</DialogTitle>
         <DialogActions>
           <Button onClick={() => handleClick()}>Yes</Button>
           <Button onClick={handleClose}>No</Button>
