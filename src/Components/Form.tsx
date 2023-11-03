@@ -14,13 +14,6 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSubmit();
-    }
-  };
-
   return (
     <Container maxWidth="sm">
       <Paper
@@ -33,7 +26,6 @@ const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
           onChange={handleInputChange}
           sx={{ ml: 1, flex: 1 }}
           placeholder="WRITE TODO"
-          onKeyDown={handleKeyDown}
           inputProps={{ "aria-label": "search patient" }}
           multiline
         />

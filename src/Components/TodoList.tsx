@@ -26,7 +26,7 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
   const [editedTodo, setEditedTodo] = useState(todoText);
 
-  const handleClickOpen = () => {
+    function openDeleteDialog() {
     setShouldOpenDialog(true);
   };
 
@@ -115,7 +115,7 @@ const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
                       <IconButton
                         aria-label="delete"
                         color="primary"
-                        onClick={handleClickOpen}
+                        onClick={openDeleteDialog}
                       >
                         <DeleteIcon />
                       </IconButton>
