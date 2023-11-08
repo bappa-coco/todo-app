@@ -1,40 +1,58 @@
 import {
   Button,
-  Container,
   InputBase,
   Paper,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import type { TodoForm } from "./todoTypes";
+
 interface Props {
-  handleSubmit: () => void;
-  setInputValue: (value: string) => void;
-  inputValue: string;
+  handleFormSubmit: (form: TodoForm) => void;
 }
-const TodoForm = ({ handleSubmit, setInputValue, inputValue }: Props) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+
+const AddTodoItemForm = ({ handleFormSubmit }: Props) => {
+
+  const [todoText, setTodoText] = useState('');
+
+  function submitForm(e?: React.FormEvent){
+    e?.preventDefault()
+    if (!todoText) {
+      return
+    }
+    handleFormSubmit({
+      todoText
+    })
+    setTodoText('')
+  }
+
   return (
-    <Container maxWidth="sm">
       <Paper
         variant="outlined"
         component="form"
+        onSubmit={submitForm}
         sx={{ display: "flex", alignItems: "center", width: 380 }}
+        
       >
         <InputBase
-          value={inputValue}
-          onChange={handleInputChange}
+          value={todoText}
+          onChange={(e) => setTodoText(e.target.value)}
           sx={{ ml: 1, flex: 1 }}
           placeholder="WRITE TODO"
           inputProps={{ "aria-label": "search patient" }}
-          multiline
         />
-          <Button sx={{ borderRadius: 1, backgroundColor: "#3F9F31" }} onClick={handleSubmit} variant="contained">
-            ADD TODO
-          </Button>
+
+        <Button 
+          sx={{ 
+            borderRadius: 1, 
+            backgroundColor: "#3F9F31" 
+          }} 
+          variant="contained"
+          type="submit"
+        >
+          ADD TODO  {/* TODO: no arbitrary string here */}
+        </Button>
       </Paper>
-    </Container>
   );
 };
 
-export default TodoForm;
+export default AddTodoItemForm;
