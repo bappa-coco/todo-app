@@ -1,44 +1,63 @@
+import React from "react";
 import { useState } from "react";
-import EditTodo from "./Dropdown";
 import {
   Box,
-  Checkbox,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   Grid,
   IconButton,
   Paper,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { styled } from "@mui/material/styles";
 
 interface Props {
-  isCompleted: boolean | undefined;
-  checkBoxClick: (value: boolean) => void;
   todoText: string;
   handleClick: () => void;
   handleUpdateTodo: (value: string) => void;
 }
-const TodoList = ({
-  isCompleted,
-  checkBoxClick,
-  todoText,
-  handleClick,
-  handleUpdateTodo,
-}: Props) => {
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+const TodoList = ({ todoText, handleUpdateTodo, handleClick }: Props) => {
   const [editTodo, setEditTodo] = useState(false);
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    maxWidth: 400,
-  }));
+  const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
+  const [editedTodo, setEditedTodo] = useState(todoText);
+
+    function openDeleteDialog() {
+    setShouldOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setShouldOpenDialog(false);
+  };
+
+  const handleEdit = () => {
+    setEditTodo(true);
+    setShouldOpenDialog(false); // Close the delete dialog when edit mode is activated
+  };
+
+  const handleSaveEdit = () => {
+    handleUpdateTodo(editedTodo);
+    setEditTodo(false);
+  };
+
+  const dialogTitle = 'Do You Want To Delete Todo?';
   return (
     <>
+      <Dialog
+        open={shouldOpenDialog}
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{dialogTitle}</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => handleClick()}>Yes</Button>
+          <Button onClick={handleClose}>No</Button>
+        </DialogActions>
+      </Dialog>
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -46,7 +65,7 @@ const TodoList = ({
         spacing={1}
       >
         <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3 }}>
-          <Item
+          <Paper
             sx={{
               my: 1,
               mx: "auto",
@@ -59,20 +78,16 @@ const TodoList = ({
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item>
-                <Checkbox
-                  {...label}
-                  color="success"
-                  checked={isCompleted}
-                  onChange={(e) => checkBoxClick(e.target.checked)}
-                />
-              </Grid>
-              <Grid item>
-                <Typography>
-                  {todoText.length > 80
-                    ? todoText.substring(0, 80) + "..."
-                    : todoText}
-                </Typography>
+              <Grid item xs={9}>
+                {editTodo ? (
+                  <TextField
+                    fullWidth
+                    value={editedTodo}
+                    onChange={(e) => setEditedTodo(e.target.value)}
+                  />
+                ) : (
+                  <Typography>{todoText}</Typography>
+                )}
               </Grid>
               <Grid item>
                 <Grid
@@ -82,39 +97,34 @@ const TodoList = ({
                   alignItems="center"
                 >
                   <Grid item>
-                    {" "}
-                    <IconButton
-                      aria-label="delete"
-                      onClick={() => setEditTodo(true)}
-                    >
-                      <EditIcon />
-                    </IconButton>
+                    {!editTodo && (
+                      <IconButton aria-label="edit" onClick={handleEdit}>
+                        <EditIcon />
+                      </IconButton>
+                    )}
+                    {editTodo && (
+                      <IconButton aria-label="save" onClick={handleSaveEdit}>
+                        <Button variant="contained" color="primary">
+                          Save
+                        </Button>
+                      </IconButton>
+                    )}
                   </Grid>
                   <Grid item>
-                    {" "}
-                    <IconButton
-                      aria-label="delete"
-                      color="primary"
-                      onClick={() => handleClick()}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    {!editTodo && (
+                      <IconButton
+                        aria-label="delete"
+                        color="primary"
+                        onClick={openDeleteDialog}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>{" "}
             </Grid>
-          </Item>
-          {editTodo && (
-            <EditTodo
-              editTodoState={editTodo}
-              handleSubmit={(value) => {
-                handleUpdateTodo(value);
-                setEditTodo(false);
-              }}
-              setEditState={(value) => setEditTodo(value)}
-              currentTodo={todoText}
-            />
-          )}
+          </Paper>
         </Box>
       </Stack>
     </>
